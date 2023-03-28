@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rendimento Detalhado</title>
+</head>
+<body>
+    <h1>Rendimento Detalhado</h1>
+
+    <script>
+            // Solicita ao usuário os valores de entrada
+            let valorInvestido = parseFloat(prompt("Digite o valor investido:"));
+            let meses = parseInt(prompt("Digite a quantidade de meses:"));
+            let selic = parseFloat(prompt("Digite a taxa SELIC:"));
+            let taxaReferencial = parseFloat(prompt("Digite a taxa referencial:"));
+
+            let rendimentoMensal;
+
+            // Verifica se a SELIC está abaixo de 8.5%
+            if (selic < 8.5) {
+            rendimentoMensal = ((selic * 0.7) / 100) + (taxaReferencial / 100);
+            } else {
+            rendimentoMensal = 0.005 + (taxaReferencial / 100);
+            }
+
+            let valorFinal = valorInvestido;
+
+            // Cria um array para armazenar o resultado e rendimento mês a mês
+            let resultadoMensal = [];
+
+            // Cria um objeto para armazenar as informações de cada mês
+            for (let i = 0; i < meses; i++) {
+            let mes = i + 1;
+            let rendimento = (valorFinal * rendimentoMensal).toFixed(2);
+            let valorTotal = (valorFinal + parseFloat(rendimento)).toFixed(2);
+
+            resultadoMensal.push({
+            "mes": mes,
+            "valor inicial": valorFinal.toFixed(2),
+            "rendimento": rendimento,
+            "valor final": valorTotal
+            });
+
+            valorFinal = parseFloat(valorTotal);
+            }
+
+            // Exibe o resultado final
+            console.log("Valor investido: R$" + valorInvestido.toFixed(2));
+            console.log("Valor final do investimento: R$" + valorFinal.toFixed(2));
+            console.log(resultadoMensal);
+    </script>
+</body>
+</html>
